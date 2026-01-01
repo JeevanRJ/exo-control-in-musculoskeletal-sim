@@ -1,7 +1,6 @@
 # HumanExo_MoCap_AnyBody
 
 **Author:** Jeevan Jayasuriya  
-**Affiliation:** NeuroErgonomics Lab, University of Wisconsin–Madison
 
 ---
 
