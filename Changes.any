@@ -1,0 +1,102 @@
+
+ // AnyFolder Assistance = {
+
+// -----------------------------------------------------       
+    // define the function to call the Python external function to write the file
+    AnyFunEx WriteValue=  {
+      AnyVar  Return = 0;
+      AnyFunExMonoPy WriteValue = {
+        ModuleFile = "write_value.py";
+        ArgList = {
+          AnyVar Value = 0;
+          AnyStringVar filename = "";
+        };
+      };
+    };   
+    
+    
+    AnyFunEx Assistance = {
+      AnyVar  Return = 0;
+      AnyFunExMonoPy Assist = {
+        // see Python script for the detailed implementation of the function
+        ModuleFile = "assistive_torque.py";
+        ArgList = {
+          AnyInt iStep = 0;
+          AnyStringVar filenameistep = "";
+          AnyStringVar filenamefsrfront = "";
+          AnyStringVar filenamefsrrear = "";
+
+        };
+      };
+    }; 
+    
+    AnyFileVar  FileNameiStep = "istep.txt";
+    AnyFileVar FileNameFSRfront = "Val_FSR_front.txt";
+    AnyFileVar FileNameFSRrear = "Val_FSR_rear.txt";
+    AnyVar FSR_front_val = WriteValue(Main.HumanModel.BodyModel.lower_arm_Forces_front.force_y_sum,FilePathCompleteOf(FileNameFSRfront));
+    AnyVar FSR_rear_val = WriteValue(Main.HumanModel.BodyModel.lower_arm_Forces_rear.force_y_sum,FilePathCompleteOf(FileNameFSRrear));
+ 
+                       
+    AnyInt SimStep = Main.Studies.InverseDynamicStudy.iStep; // current step of the simulation
+    AnyVar AssistiveTorque =  Assistance(SimStep,FilePathCompleteOf(FileNameiStep),FilePathCompleteOf(FileNameFSRfront),FilePathCompleteOf(FileNameFSRrear));
+   
+  
+      AnyForce RElbowExtTorque = {
+        AnyKinMeasure &RElb = Main.HumanModel.BodyModel.two_link_assembly.Mates.Hinge1;
+         F = -{.AssistiveTorque};      
+         AnyDrawForce drw = {};
+    };  
+
+    
+    
+    
+    // creating left and right forces
+     Main.HumanModel.BodyModel.Left.ShoulderArm.Seg.Radius = 
+{
+
+    AnyRefNode lefthandnode = {
+     sRel = ({-0.2,0.01, 0.0});
+     ARel = RotMat(0.25,y);
+     AnyDrawRefFrame drw = 
+          {
+              ScaleXYZ = 0.1 * {1,1,1};
+              RGB = {1,0,0};
+          }; 
+          
+        };
+         
+      AnyForce3D lefthandF= {
+      Flocal = {-370, 0 ,0};
+      AnyRefFrame &lefthandF = Main.HumanModel.BodyModel.Left.ShoulderArm.Seg.Radius.lefthandnode;
+      AnyDrawForce drw = {};
+    };
+       
+                
+};
+
+Main.HumanModel.BodyModel.Right.ShoulderArm.Seg.Radius = 
+{
+
+    AnyRefNode righthandnode = {
+     sRel = ({-0.2,-0.01, 0.0});
+     ARel = RotMat(0.25,y);
+     AnyDrawRefFrame drw = 
+          {
+              ScaleXYZ = 0.1 * {1,1,1};
+              RGB = {1,0,0};
+          }; 
+          
+        };
+         
+      AnyForce3D righthandF= {
+      Flocal = {-370, 0 ,0};
+      AnyRefFrame &righthandF = Main.HumanModel.BodyModel.Right.ShoulderArm.Seg.Radius.righthandnode;
+      AnyDrawForce drw = {};
+    };
+       
+                
+};
+    
+    
+
+

@@ -1,0 +1,79 @@
+#include "../../../libdef.any"
+
+/* ----------------------------------------------------------------------------------
+  Human–Exoskeleton Concept (MoCap-driven scaffold)
+
+  This model demonstrates an exoskeleton concept integrated with a full-body human
+  model driven by BVH motion capture data.
+
+  The model is structured to reuse an AMMR MoCap scaffold (AnyMoCap) and then apply
+  the exoskeleton concept code. This approach avoids duplicating a full human MoCap
+  model structure.
+
+  If you want to apply the exoskeleton concept to another AnyBody human model,
+  you typically only need to copy the code inside the ExoConcept section (below)
+  into your target model.
+
+---------------------------------------------------------------------------------- */
+
+// ***************************** AnyMoCap ************************************
+// This section points to a MoCap-driven human model scaffold and allows you to
+// select the subject and trial folders that contain BVH data.
+
+// Path to the MoCap scaffold in the AMMR (example structure):
+// <MocapModel>/<Subjects>/<subject>/<subject_trial>/Main.any
+//
+// Define here the path to your MoCap scaffold Subjects folder.
+// (This can point to an AMMR example scaffold, even if you replace the BVH files with your own.)
+#path ANYMOCAP_BVH_SCAFFOLD "<ANYBODY_PATH_AMMR>/Application/MocapExamples/BVH_Xsens/Subjects/"
+
+// Select Subject folder
+#define MOCAP_NAME_SUBJECTDIR "matteo"
+
+// Select Trial folder suffix
+#define MOCAP_NAME_TRIALDIR "_T02" // original was _T05
+
+#define MOCAP_NAME_MAINFILEDIR MOCAP_NAME_SUBJECTDIR + MOCAP_NAME_TRIALDIR
+
+// Build path to selected subject/trial folder
+#path MOCAP_MAINFILEDIR "<ANYMOCAP_BVH_SCAFFOLD>" + MOCAP_NAME_SUBJECTDIR + "/" + MOCAP_NAME_MAINFILEDIR
+
+// Include the MoCap-driven human model main file
+#include "<MOCAP_MAINFILEDIR>/Main.any"
+
+// Exoskeleton force element (6DOF)
+#include "Input\\CreateAnyGeneralForce6DOF.any"
+
+
+Main = {
+
+  // Exoskeleton / attachment node definitions
+  #include "Input\\new_nodes.any"
+
+  HumanModel.BodyModel = {
+
+    // Exoskeleton CAD / assembly
+    #include "CAD\\two_link_assembly.any"
+
+    // Human–exo connections and interactions
+    #include "Input\\exo_human_connections.any"
+    #include "Input\\interactions1.any"
+
+    // Assistance / control parameters (e.g., external torque logic)
+    AnyFolder assistance = {
+      #include "Changes.any"
+    };
+  };
+
+  // Example geometry variables
+  AnyVar upperarm_L = vnorm(
+      Main.HumanModel.BodyModel.Left.ShoulderArm.Seg.Humerus.el.ElbowNode_up.sRel
+    - Main.HumanModel.BodyModel.Left.ShoulderArm.Seg.Humerus.el.ElbowNode.sRel
+  );
+
+  AnyVar lowerarm_L = vnorm(
+      Main.HumanModel.BodyModel.Left.ShoulderArm.Seg.Humerus.el.ElbowNode.sRel
+    - Main.HumanModel.BodyModel.Left.ShoulderArm.Seg.Radius.PointHumeralRadialJoint.ElbowNode_down_middle.sRel
+  );
+
+}; // Main

@@ -1,0 +1,101 @@
+AnyFolder exo_human_connections = 
+{   
+  ////////////connections req for IK
+  AnyKinEq Upper_arm_connection =
+      {
+        AnyKinLinear lin = 
+        {
+          AnyRefFrame& base = Main.HumanModel.BodyModel.Left.ShoulderArm.Seg.Humerus.el.ElbowNode_up;
+          //AnyRefFrame& target = Main.HumanModel.BodyModel.two_link_assembly.two_link_upper___1.Coordinate__System1;
+          AnyRefFrame& target = Main.HumanModel.BodyModel.two_link_assembly.two_link_upper___1.Point2;
+          Ref = 0;
+         };
+         
+        AnyKinRotational rot = 
+        {
+          AnyRefFrame& base = Main.HumanModel.BodyModel.Left.ShoulderArm.Seg.Humerus.el.ElbowNode_up;
+          AnyRefFrame& target = Main.HumanModel.BodyModel.two_link_assembly.two_link_upper___1.Point2;
+          //AnyRefFrame& target = Main.HumanModel.BodyModel.two_link_assembly.two_link_upper___1.Coordinate__System1;
+          Type = PlanarAngles;
+        };
+        
+        MeasureOrganizer = {0,1};
+        CType = {Hard,Hard}; 
+        Reaction.Type = {Off, Off};
+      };
+      
+      
+   AnyKinEq Lower_arm_connection =
+      {
+        AnyKinLinear lin = 
+        {
+          AnyRefFrame& base = Main.HumanModel.BodyModel.Left.ShoulderArm.Seg.Radius.PointHumeralRadialJoint.ElbowNode_down_middle;
+          AnyRefFrame& target = Main.HumanModel.BodyModel.two_link_assembly.lower___1.Point1;
+          //AnyRefFrame& target = Main.HumanModel.BodyModel.two_link_assembly.lower___1.Coordinate__System3;
+          Ref = 0;
+        };
+        AnyKinRotational rot = 
+        {
+          AnyRefFrame& base = Main.HumanModel.BodyModel.Left.ShoulderArm.Seg.Radius.PointHumeralRadialJoint.ElbowNode_down_middle;
+          AnyRefFrame& target = Main.HumanModel.BodyModel.two_link_assembly.lower___1.Point1;
+          //AnyRefFrame& target = Main.HumanModel.BodyModel.two_link_assembly.lower___1.Coordinate__System3;
+
+          Type = PlanarAngles;
+        };
+        
+        MeasureOrganizer = {1}; 
+        CType = {Hard};  
+        Reaction.Type = {Off};
+        
+      };
+      
+      
+      AnyCylindricalJoint jnt_elbow = {
+        AnyRefFrame& obj1 = Main.HumanModel.BodyModel.Left.ShoulderArm.Seg.Humerus.el.ElbowNode;
+        AnyRefFrame& obj2 = Main.HumanModel.BodyModel.two_link_assembly.two_link_upper___1.two_link_assembly_Hinge1;
+        Main.HumanModel.BodyModel.exo_human_connections.jnt_elbow.Constraints.Reaction.Type = {Off,Off,Off,Off};
+     };
+      
+     
+    //////////////reaction forces as required for ID
+     
+//     AnyReacForce thigh_reaction =   {
+//   AnyKinMeasureOrg thigh_r ={
+//     AnyKinLinear t_r={
+//         AnyRefFrame& base = Main.HumanModel.BodyModel.Right.Leg.Seg.Thigh.KneeJoint.ThighNode_up;
+//         AnyRefFrame& target = Main.Model.exo.thigh___1.Point1;
+//         //Type = PlanarAngles;
+//     };
+//     MeasureOrganizer = {0,1,2};
+//   };
+// };
+// 
+ 
+//  AnyReacForce shank_reaction =   {
+//   AnyKinMeasureOrg shank_r ={
+//     AnyKinLinear shank_l={
+//          AnyRefFrame& base = Main.HumanModel.BodyModel.Right.Leg.Seg.Shank.KneeJoint.ShankNode_down;
+//          AnyRefFrame& target = Main.Model.exo.shank___1.Point2;
+//         //Type = PlanarAngles;
+//     };
+//     MeasureOrganizer = {0,1,2};
+//   };
+// };
+// 
+  
+//  AnyReacForce axial_rotation =   {
+//   AnyKinMeasureOrg axial_r ={
+//     AnyKinRotational axial_l={
+//        AnyRefFrame& obj1 = Main.Model.exo.thigh___1.exo_Hinge1;
+//        AnyRefFrame& obj2 = Main.HumanModel.BodyModel.Right.Leg.Seg.Shank.KneeJoint; //???
+//
+//        Type = PlanarAngles;
+//     };
+//    MeasureOrganizer = {2};   /////??
+//   };
+// };
+ 
+  
+};
+
+

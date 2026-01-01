@@ -1,0 +1,99 @@
+// nodes to measure distance for the exo parts
+Main.HumanModel.BodyModel.Left.ShoulderArm.Seg.Humerus.el = {
+   AnyRefNode ElbowNode_up = {
+     sRel = ({0.0,0.076, 0.0}); //({0.0,0.11, 0.0}); 
+     ARel = RotMat(0,y);
+     AnyDrawRefFrame drw = 
+          {
+              ScaleXYZ = 0.05 * {1,1,1};
+              RGB = {0,0,1};
+          }; 
+        };
+        
+     AnyRefNode ElbowNode = {
+     sRel = ({0.0,-0.035, 0.0});
+     ARel = RotMat(-1.57,y);
+
+     AnyDrawRefFrame drw = 
+          {
+              ScaleXYZ = 0.1 * {1,1,1};
+              RGB = {0,0,1};
+          }; 
+        };
+     
+     
+            
+   };
+   
+   
+   
+   Main.HumanModel.BodyModel.Left.ShoulderArm.Seg.Radius.PointHumeralRadialJoint = {
+   AnyRefNode ElbowNode_down_front = {
+     sRel = ({0.115,0.025, 0.028});
+     ARel = RotMat(0.52,x);
+     AnyDrawRefFrame drw = 
+          {
+              ScaleXYZ = 0.05 * {1,1,1};
+              RGB = {1,0,0};
+          }; 
+        };
+        
+        
+   AnyRefNode ElbowNode_down_middle = {
+     sRel = ({ 0.12,0.035, -0.03}); // 0.1/0.02/-0.03 / ({0.093,0.018, -0.03}); 0.093,0.035, 0
+     ARel = RotMat(0,x);
+     AnyDrawRefFrame drw = 
+          {
+              ScaleXYZ = 0.05 * {1,1,1};
+              RGB = {0,0,1};
+          }; 
+        };
+        
+    AnyRefNode ElbowNode_down_rear = {
+     sRel = ({0.12,-0.025, -0.03});
+     ARel = RotMat(0.00,x);
+     AnyDrawRefFrame drw = 
+          {
+              ScaleXYZ = 0.05 * {1,1,1};
+              RGB = {1,0,0};
+          }; 
+        };
+           
+      };
+   
+        
+   
+//    AnySeg& Ref_Right_shank = Main.HumanModel.BodyModel.Right.Leg.Seg.Shank;
+//  Ref_Right_shank = 
+//  {
+// 
+//  };
+   
+   
+
+   
+   
+//nodes to connect exo parts with human
+
+AnyFolder Human_RefNodes =
+{ 
+    
+//  AnySeg& Ref_Right_thigh = Main.HumanModel.BodyModel.Right.Leg.Seg.Thigh;
+//  Ref_Right_thigh = 
+//  {
+//      AnyRefNode thigh_node_on_human = 
+//      {
+//          sRel = ({-0.005,0.158,0.0825});
+//          //ARel = RotMat(90*pi/180,x);
+//          AnyDrawRefFrame drw = 
+//          {
+//              ScaleXYZ = 0.1 * {1,1,1};
+//              RGB = {0,0,1};
+//          };
+//      };  
+//  };
+      
+ 
+  
+};
+   

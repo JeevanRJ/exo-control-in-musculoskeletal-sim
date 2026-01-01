@@ -1,0 +1,180 @@
+ 
+  CreateAnyGeneralForce6DOF upper_arm_Forces(
+  TargetFrame = Main.HumanModel.BodyModel.Left.ShoulderArm.Seg.Humerus.el.ElbowNode_up,
+  BaseFrame = Main.HumanModel.BodyModel.two_link_assembly.two_link_upper___1.Coordinate__System1)= 
+  {
+    strength_Fx = 1000;
+    strength_Fy = 1000;
+    strength_Fz = 1000;
+    strength_Mx = 1000   ;
+    strength_My = 1000   ;
+    strength_Mz = 1000  ;
+  };
+  
+  CreateAnyGeneralForce6DOF lower_arm_Forces_front(
+  TargetFrame = Main.HumanModel.BodyModel.Left.ShoulderArm.Seg.Radius.PointHumeralRadialJoint.ElbowNode_down_front,
+  BaseFrame = Main.HumanModel.BodyModel.two_link_assembly.lower___1.Coordinate__System1)= 
+  {
+    strength_Fx = 1000;
+    strength_Fy = 1000;
+    strength_Fz = 1000;
+    strength_Mx = 1000   ;
+    strength_My = 1000   ;
+    strength_Mz = 1000  ;
+  };
+
+  CreateAnyGeneralForce6DOF lower_arm_Forces_rear(
+  TargetFrame = Main.HumanModel.BodyModel.Left.ShoulderArm.Seg.Radius.PointHumeralRadialJoint.ElbowNode_down_rear,
+  BaseFrame = Main.HumanModel.BodyModel.two_link_assembly.lower___1.Coordinate__System2)= 
+  {
+    strength_Fx = 1000;
+    strength_Fy = 1000;
+    strength_Fz = 1000;
+    strength_Mx = 1000   ;
+    strength_My = 1000   ;
+    strength_Mz = 1000  ;
+  };
+
+
+
+
+//// Strength when contact is active
+//AnyVar Strength = 999999999;
+//// Some function to determine if contact should be active or not.
+////AnyVar UserDefinedStrengthFunction= iffun(ltfun(Lin.Pos[0]-0.02),Strength,0.0);
+//
+//// Muscle model used for contact muscles
+//AnyMuscleModelUsr1 ContactMuscleModel=   {
+//  F0 = 0.000000;
+//  S = 1000;
+//};        
+//  
+//// Linear measure between the two objects
+//AnyKinLinear Lin={
+//  AnyRefFrame &Box = Main.HumanModel.BodyModel.Right.Leg.Seg.Thigh.KneeJoint.thigh_int;
+//  AnyRefFrame &Hand = Main.Model.exo.thigh___1.Point1;
+//  Ref=0;
+//};
+//
+//// rotational measure between the two objects
+//AnyKinRotational Rot = {
+//  AnyRefFrame &Box = Main.HumanModel.BodyModel.Right.Leg.Seg.Thigh.KneeJoint.thigh_int;
+//  AnyRefFrame &Hand = Main.Model.exo.thigh___1.Point1;
+//    Type = RotVector;
+//};
+//
+//// 12 muscles to carry all 6-DoF in both a pull and push direction (specified by the `ForceDirection`
+//AnyGeneralMuscle Muscle00a={
+//    AnyKinMeasureOrg LinMeasureOrg0 = {
+//      AnyKinMeasure& ref1 = Main.Model.ModelEnvironmentConnection.Lin;
+//        MeasureOrganizer = {0};
+//    };
+//    AnyMuscleModelUsr1 &ref1=.ContactMuscleModel;
+//    ForceDirection=1;
+//    EXCLUDE_MUSCLE_METABOLISM  
+//};
+//AnyGeneralMuscle Muscle00b={
+//    AnyKinMeasureOrg LinMeasureOrg0 = {
+//        AnyKinMeasure& ref1 = Main.Model.ModelEnvironmentConnection.Lin;
+//        MeasureOrganizer = {0};
+//    };
+//    AnyMuscleModelUsr1 &ref1=.ContactMuscleModel;
+//    ForceDirection=-1;
+//    EXCLUDE_MUSCLE_METABOLISM  
+//};
+//
+//AnyGeneralMuscle Muscle01a={
+//    AnyKinMeasureOrg LinMeasureOrg1 = {
+//        AnyKinMeasure& ref1 = Main.Model.ModelEnvironmentConnection.Lin;
+//        MeasureOrganizer = {1};
+//    };
+//    AnyMuscleModelUsr1 &ref1=.ContactMuscleModel;
+//    ForceDirection=1;
+//    EXCLUDE_MUSCLE_METABOLISM  
+//};
+//AnyGeneralMuscle Muscle01b={
+//    AnyKinMeasureOrg LinMeasureOrg1 = {
+//        AnyKinMeasure& ref1 = Main.Model.ModelEnvironmentConnection.Lin;
+//        MeasureOrganizer = {1};
+//    };
+//    AnyMuscleModelUsr1 &ref1=.ContactMuscleModel;
+//    ForceDirection=-1;
+//    EXCLUDE_MUSCLE_METABOLISM  
+//};
+//
+//AnyGeneralMuscle Muscle02a={
+//    AnyKinMeasureOrg LinMeasureOrg2 = {
+//        AnyKinMeasure& ref1 = Main.Model.ModelEnvironmentConnection.Lin;
+//        MeasureOrganizer = {2};
+//    };
+//    AnyMuscleModelUsr1 &ref1=.ContactMuscleModel;
+//    ForceDirection=1;
+//    EXCLUDE_MUSCLE_METABOLISM  
+//};
+//AnyGeneralMuscle Muscle02b={
+//    AnyKinMeasureOrg LinMeasureOrg2 = {
+//        AnyKinMeasure& ref1 = Main.Model.ModelEnvironmentConnection.Lin;
+//        MeasureOrganizer = {2};
+//    };
+//    AnyMuscleModelUsr1 &ref1=.ContactMuscleModel;
+//    ForceDirection=-1;
+//    EXCLUDE_MUSCLE_METABOLISM  
+//};
+//
+//AnyGeneralMuscle Muscle03a={
+//    AnyKinMeasureOrg RotMeasureOrg0 = {
+//      AnyKinMeasure& ref1 = Main.Model.ModelEnvironmentConnection.Rot;
+//        MeasureOrganizer = {0};
+//    };
+//    AnyMuscleModelUsr1 &ref1=.ContactMuscleModel;
+//    ForceDirection=1;
+//    EXCLUDE_MUSCLE_METABOLISM  
+//};
+//AnyGeneralMuscle Muscle03b={
+//    AnyKinMeasureOrg RotMeasureOrg0 = {
+//        AnyKinMeasure& ref1 = Main.Model.ModelEnvironmentConnection.Rot;
+//        MeasureOrganizer = {0};
+//    };
+//    AnyMuscleModelUsr1 &ref1=.ContactMuscleModel;
+//    ForceDirection=-1;
+//    EXCLUDE_MUSCLE_METABOLISM  
+//};
+//
+//AnyGeneralMuscle Muscle04a={
+//    AnyKinMeasureOrg RotMeasureOrg1 = {
+//        AnyKinMeasure& ref1 = Main.Model.ModelEnvironmentConnection.Rot;
+//        MeasureOrganizer = {1};
+//    };
+//    AnyMuscleModelUsr1 &ref1=.ContactMuscleModel;
+//    ForceDirection=1;
+//    EXCLUDE_MUSCLE_METABOLISM  
+//};
+//AnyGeneralMuscle Muscle04b={
+//    AnyKinMeasureOrg RotMeasureOrg1 = {
+//        AnyKinMeasure& ref1 = Main.Model.ModelEnvironmentConnection.Rot;
+//        MeasureOrganizer = {1};
+//    };
+//    AnyMuscleModelUsr1 &ref1=.ContactMuscleModel;
+//    ForceDirection=-1;
+//    EXCLUDE_MUSCLE_METABOLISM  
+//};
+//
+//AnyGeneralMuscle Muscle05a={
+//    AnyKinMeasureOrg RotMeasureOrg2 = {
+//        AnyKinMeasure& ref1 = Main.Model.ModelEnvironmentConnection.Rot;
+//        MeasureOrganizer = {2};
+//    };
+//    AnyMuscleModelUsr1 &ref1=.ContactMuscleModel;
+//    ForceDirection=1;
+//    EXCLUDE_MUSCLE_METABOLISM  
+//};
+//AnyGeneralMuscle Muscle05b={
+//    AnyKinMeasureOrg RotMeasureOrg2 = {
+//        AnyKinMeasure& ref1 = Main.Model.ModelEnvironmentConnection.Rot;
+//        MeasureOrganizer = {2};
+//    };
+//    AnyMuscleModelUsr1 &ref1=.ContactMuscleModel;
+//    ForceDirection=-1;
+//    EXCLUDE_MUSCLE_METABOLISM  
+//};
+

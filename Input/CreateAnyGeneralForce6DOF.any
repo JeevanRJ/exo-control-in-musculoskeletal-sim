@@ -1,0 +1,170 @@
+#class_template CreateAnyGeneralForce6DOF(BaseFrame, TargetFrame)
+{
+  #var AnyFloat strength_Fx = 1000;
+  #var AnyFloat strength_Fy = 1000;
+  #var AnyFloat strength_Fz = 1000;
+  #var AnyFloat strength_Mx = 1000;
+  #var AnyFloat strength_My = 1000;
+  #var AnyFloat strength_Mz = 1000;
+  
+  
+  AnyKinLinear lin = 
+  {
+    AnyRefFrame& base = BaseFrame;
+    AnyRefFrame& target = TargetFrame;
+    Ref = 0;
+  };
+  
+  AnyKinRotational rot = 
+  {
+    AnyRefFrame& base = BaseFrame;
+    AnyRefFrame& target = TargetFrame;
+    Type = RotAxesAngles;
+    Axis1 = x;
+    Axis2 = y;
+    Axis3 = z;
+  };
+  
+  AnyKinMeasureOrg lin_x =
+  {
+    AnyKinMeasure& src = .lin;
+    MeasureOrganizer = {0};
+  };
+  
+  AnyKinMeasureOrg lin_y =
+  {
+    AnyKinMeasure& src = .lin;
+    MeasureOrganizer = {1};
+  };    
+  
+  AnyKinMeasureOrg lin_z =
+  {
+    AnyKinMeasure& src = .lin;
+    MeasureOrganizer = {2};
+  };    
+
+  AnyKinMeasureOrg rot_x =   
+  {
+    AnyKinMeasure& src = .rot;
+    MeasureOrganizer = {0};
+  };
+  
+  AnyKinMeasureOrg rot_y =   
+  {
+    AnyKinMeasure& src = .rot;
+    MeasureOrganizer = {1};
+  };  
+  
+  AnyKinMeasureOrg rot_z =   
+  {
+    AnyKinMeasure& src = .rot;
+    MeasureOrganizer = {2};
+  };  
+  
+  AnyMuscleModel mus_model_Fx = 
+  {
+    F0 = .strength_Fx;
+  };
+  AnyMuscleModel mus_model_Fy = 
+  {
+    F0 = .strength_Fy;
+  };
+  AnyMuscleModel mus_model_Fz = 
+  {
+    F0 = .strength_Fz;
+  };
+  AnyMuscleModel mus_model_Mx = 
+  {
+    F0 = .strength_Mx;
+  };
+  AnyMuscleModel mus_model_My = 
+  {
+    F0 = .strength_My;
+  };
+  AnyMuscleModel mus_model_Mz =
+  {
+    F0 = .strength_Mz;
+  };    
+  
+  AnyGeneralMuscle force_x_pos = 
+  {
+    AnyKinMeasure& ref = .lin_x;
+    AnyMuscleModel& mus = .mus_model_Fx ;
+    ForceDirection = 1;
+  };
+  AnyGeneralMuscle force_x_neg = 
+  {
+    AnyKinMeasure& ref = .lin_x;
+    AnyMuscleModel& mus = .mus_model_Fx  ;
+    ForceDirection = -1;
+  };  
+  AnyGeneralMuscle force_y_pos = 
+  {
+    AnyKinMeasure& ref = .lin_y;
+    AnyMuscleModel& mus = .mus_model_Fy ;
+    ForceDirection = 1;
+  };
+  AnyGeneralMuscle force_y_neg = 
+  {
+    AnyKinMeasure& ref = .lin_y;
+    AnyMuscleModel& mus = .mus_model_Fy ;
+    ForceDirection = -1;
+  };  
+  AnyGeneralMuscle force_z_pos = 
+  {
+    AnyKinMeasure& ref = .lin_z;
+    AnyMuscleModel& mus = .mus_model_Fz ;
+    ForceDirection = 1;
+  };
+  AnyGeneralMuscle force_z_neg = 
+  {
+    AnyKinMeasure& ref = .lin_z;
+    AnyMuscleModel& mus = .mus_model_Fz ;
+    ForceDirection = -1;
+  };  
+  
+  AnyGeneralMuscle moment_x_pos = 
+  {
+    AnyKinMeasure& ref = .rot_x;
+    AnyMuscleModel& mus = .mus_model_Mx ; 
+    ForceDirection = 1;
+  };
+  AnyGeneralMuscle moment_x_neg = 
+  {
+    AnyKinMeasure& ref = .rot_x;
+    AnyMuscleModel& mus = .mus_model_Mx ;
+    ForceDirection = -1;
+  };  
+  AnyGeneralMuscle moment_y_pos = 
+  {
+    AnyKinMeasure& ref = .rot_y;
+    AnyMuscleModel& mus = .mus_model_My ;
+    ForceDirection = 1;
+  };
+  AnyGeneralMuscle moment_y_neg = 
+  {
+    AnyKinMeasure& ref = .rot_y;
+    AnyMuscleModel& mus = .mus_model_My ;
+    ForceDirection = -1;
+  };  
+  AnyGeneralMuscle moment_z_pos = 
+  {
+    AnyKinMeasure& ref = .rot_z;
+    AnyMuscleModel& mus = .mus_model_Mz ;
+    ForceDirection = 1;
+  };
+  AnyGeneralMuscle moment_z_neg = 
+  {
+    AnyKinMeasure& ref = .rot_z;
+    AnyMuscleModel& mus = .mus_model_Mz ;
+    ForceDirection = -1;
+  };   
+  
+  AnyVar force_x_sum = force_x_pos.Fout[0] + force_x_neg.Fout[0] ;
+  AnyVar force_y_sum = force_y_pos.Fout[0] + force_y_neg.Fout[0] ;  
+  AnyVar force_z_sum = force_z_pos.Fout[0] + force_z_neg.Fout[0] ;  
+  AnyVar moment_x_sum = moment_x_pos.Fout[0] + moment_x_neg.Fout[0] ;
+  AnyVar moment_y_sum = moment_y_pos.Fout[0] + moment_y_neg.Fout[0] ;  
+  AnyVar moment_z_sum = moment_z_pos.Fout[0] + moment_z_neg.Fout[0] ;  
+  
+};
